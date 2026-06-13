@@ -1,0 +1,31 @@
+name: Nightly FRED Data Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Tells the robot to run every single night at midnight
+  workflow_dispatch: # Gives you a manual button to click if you want to force an update right now
+
+permissions:
+  contents: write # Allows the robot to save files back to your repository
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Fetch Script
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }} # Passes your hidden key safely
+        run: python fetch_fred_gdp.py
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated update of FRED economic data"
