@@ -1,0 +1,39 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div style="width: 100%; max-width: 800px; margin: auto;">
+  <canvas id="myFredChart"></canvas>
+</div>
+
+<script>
+fetch('fred_data.json')
+  .then(response => response.json())
+  .then(data => {
+    // Extract dates for the X-axis and numbers for the Y-axis
+    const dates = data.map(item => item.date);
+    const values = data.map(item => item.value);
+
+    // Create the chart (Conceptually similar to Matlab's plot(x, y) command)
+    const ctx = document.getElementById('myFredChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'US Gross Domestic Product (GDP)',
+          data: values,
+          borderColor: '#2b6cb0',
+          borderWidth: 2,
+          fill: false,
+          pointRadius: 0 // Keeps the line clean; points show up on hover
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: 'Date' } },
+          y: { title: { display: true, text: 'Billions of Dollars' } }
+        }
+      }
+    });
+  });
+</script>
