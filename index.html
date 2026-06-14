@@ -134,7 +134,19 @@
     }
 
     .hero-left { min-width: 0; }
-    .hero-right { min-width: 0; }
+    
+    /* Layout styling for the logo insertion container */
+    .hero-right { 
+      min-width: 0; 
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .warwick-logo img {
+      max-height: 45px;
+      width: auto;
+      display: block;
+    }
 
     /* Landscape Portrait Modification */
     .portrait-landscape {
@@ -164,32 +176,11 @@
       font-weight: 500;
       line-height: 1.4;
       color: var(--accent);
-    }
-
-    .affiliation {
-      margin-top: 0.5rem;
-      font-family: var(--sans);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-    .affiliation a {
-      color: var(--accent);
-      text-decoration-line: underline;
-      text-decoration-color: var(--accent-line);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.16em;
-      transition: color 0.16s ease, text-decoration-color 0.16s ease;
-    }
-    .affiliation a:hover {
-      color: var(--accent-strong);
-      text-decoration-color: var(--accent-strong);
-      text-decoration-thickness: 2px;
+      margin-bottom: 1.5rem;
     }
 
     /* Academic Underline Elements */
-    .about-wrapper a {
+    .inline-link {
       color: var(--accent);
       text-decoration-line: underline;
       text-decoration-color: var(--accent-line);
@@ -197,7 +188,7 @@
       text-underline-offset: 0.16em;
       transition: color 0.16s ease, text-decoration-color 0.16s ease;
     }
-    .about-wrapper a:hover {
+    .inline-link:hover {
       color: var(--accent-strong);
       text-decoration-color: var(--accent-strong);
       text-decoration-thickness: 2px;
@@ -391,52 +382,44 @@
       <section class="hero-section">
         
         <div class="hero-left">
-  <h1 class="name reveal" style="--d:40ms">Arthur Galichère</h1>
-  <p class="subtitle reveal" style="--d:80ms">Assistant Professor (Teaching Focussed)</p>
-  <p>
-  <div class="in-a-few-words-wrapper reveal" style="--d:160ms">
-    <h2 class="section-label">In a few words</h2>
-    <div class="in-a-few-words-content">
-      <p>
-        I am an Assistant Professor (Teaching Focussed) at the
-        <a href="https://warwick.ac.uk" target="_blank" rel="noreferrer" class="inline-link">
-          University of Warwick
-        </a>.
-        I obtained my PhD in Economics from the
-        <a href="https://www.gla.ac.uk" target="_blank" rel="noreferrer" class="inline-link">
-          University of Glasgow
-        </a>
-        in 2022.
-      </p>
+          <h1 class="name reveal" style="--d:40ms">Arthur Galichère</h1>
+          <p class="subtitle reveal" style="--d:80ms">Assistant Professor (Teaching Focussed)</p>
 
-      <p style="margin-top: 0.6rem;">
-        My main research interests in macroeconomics are focused on:
-      </p>
+          <div class="in-a-few-words-wrapper reveal" style="--d:160ms">
+            <h2 class="section-label">In a few words</h2>
+            <div class="in-a-few-words-content">
+              <p>
+                I am an Assistant Professor (Teaching Focussed) at the 
+                <a href="https://warwick.ac.uk" target="_blank" rel="noreferrer" class="inline-link">
+                  University of Warwick
+                </a>. 
+                I obtained my PhD in Economics from the 
+                <a href="https://www.gla.ac.uk" target="_blank" rel="noreferrer" class="inline-link">
+                  University of Glasgow
+                </a> 
+                in 2022.
+              </p>
 
-      <ul class="interest-list">
-        <li>Business cycles</li>
-        <li>Asset price bubbles</li>
-        <li>Macroeconomic policies</li>
-        <li>Financial stability</li>
-      </ul>
-    </div>
-  </div>
-</div>
+              <p style="margin-top: 0.6rem;">
+                My main research interests in macroeconomics are focused on:
+              </p>
 
+              <ul class="interest-list">
+                <li>Business cycles</li>
+                <li>Asset price bubbles</li>
+                <li>Macroeconomic policies</li>
+                <li>Financial stability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         
-<div class="hero-right reveal" style="--d:140ms">
-
-  <div class="warwick-logo">
-    <img src="website/University_of_Warwick_name_1.png"
-         alt="University of Warwick logo">
-  </div>
-
-  <img src="website/arthur_galichere.png"
-       alt="Arthur Galichère landscape view"
-       class="portrait-landscape">
-
-</div> 
-
+        <div class="hero-right reveal" style="--d:140ms">
+          <div class="warwick-logo">
+            <img src="website/University_of_Warwick_name_1.png" alt="University of Warwick logo">
+          </div>
+          <img src="website/arthur_galichere.png" alt="Arthur Galichère landscape view" class="portrait-landscape">
+        </div> 
 
       </section>
 
@@ -446,12 +429,13 @@
           <div class="about-text reveal" style="--d:220ms">
             <h2 class="section-label">About me</h2>
             <p>
-              I am an Assistant Professor at the University of Warwick studying macroeconomics. My main research interests in this field focus on themes related to financial crises and macroeconomic policies, such as asset pricing, monetary policy, heterogeneous investments, financial intermediation and stability. I design theoretical models and apply empirical methods to evaluate the effects of asset price bubbles on the economy to provide policy recommendations. My job market paper studies the dynamic ownership of bubbles and its effects on the real economy and financial stability. In contrast, my current projects focus on the Bayesian estimation of DSGE models with stock market bubbles and nominal rigidities.            </p>
-            <p>
-              My profound interest in economics was awakened by a sequence of economic events that changed the lives of many. The first main event that sparked my curiosity was the burst of the subprime mortgage bubble. I was young, but still, I remember the news being incessantly focused on the financial crisis and the great uncertainty it brought to people. At that time, I was wondering what caused such a situation and how to remedy it.             
+              I am an Assistant Professor at the University of Warwick studying macroeconomics. My main research interests in this field focus on themes related to financial crises and macroeconomic policies, such as asset pricing, monetary policy, heterogeneous investments, financial intermediation and stability. I design theoretical models and apply empirical methods to evaluate the effects of asset price bubbles on the economy to provide policy recommendations. My job market paper studies the dynamic ownership of bubbles and its effects on the real economy and financial stability. In contrast, my current projects focus on the Bayesian estimation of DSGE models with stock market bubbles and nominal rigidities.
             </p>
             <p>
-            This curiosity led me to study economics after my Baccalaureate. I started my undergraduate studies at the University of Caen in France and met many great people there. At the same moment, the European debt crisis was in full swing and raised many interrogations in the minds of Europeans. I had the chance to have a very eloquent macroeconomic professor who was narrating his understanding of the crisis, and made me think about what would be the best macroeconomic policy.             
+              My profound interest in economics was awakened by a sequence of economic events that changed the lives of many. The first main event that sparked my curiosity was the burst of the subprime mortgage bubble. I was young, but still, I remember the news being incessantly focused on the financial crisis and the great uncertainty it brought to people. At that time, I was wondering what caused such a situation and how to remedy it.              
+            </p>
+            <p>
+              This curiosity led me to study economics after my Baccalaureate. I started my undergraduate studies at the University of Caen in France and met many great people there. At the same moment, the European debt crisis was in full swing and raised many interrogations in the minds of Europeans. I had the chance to have a very eloquent macroeconomic professor who was narrating his understanding of the crisis, and made me think about what would be the best macroeconomic policy.              
             </p>
             <p>
               After my undergraduate studies, I went abroad for one year in an exchange programme with Texas A&M University in the US. I discovered a very different culture and educational system, where I learnt many new things. During this year, my interest was focused on unconventional monetary policies, which were the themes of my dissertation on the evolution of the monetary policies of the ECB and the Fed since the beginning of the financial crisis. These cultural and academic experiences were very beneficial to me, and this was the moment I decided I wanted to do research in economics.
@@ -465,8 +449,9 @@
             <p>
               After three years of dedicated work, I was promoted to Assistant Professor (Teaching Focussed) in 2024. This marked an exciting new chapter for me, as I have also been entrusted with leading and teaching the Advanced Macroeconomics optional core module for the MSc in Economics, a truly exceptional module. The module covers everything from data analysis and economic theory to the development and simulation of new macroeconomic models. My goal in designing this course was to ensure that, by the end, students are fully equipped to become independent macroeconomic analysts or to pursue further studies, such as an MRes or PhD.
             </p>
-             <p>
-              In 2025, I won the Warwick Awards for Teaching Excellence (WATE) for the Faculty of Social Sciences. The jury recognised my “innovation, impact, and dedication to enhancing the student experience”. I feel truly honoured by this recognition and very grateful to my students for their nomination and kind feedback. It is deeply rewarding to know that my teaching has made a meaningful difference to their learning. I would also like to thank the WATE jury for this honour, and my colleagues at Warwick for their continued support and inspiration. I do not believe this achievement would have been possible without them.            </p>
+            <p>
+              In 2025, I won the Warwick Awards for Teaching Excellence (WATE) for the Faculty of Social Sciences. The jury recognised my “innovation, impact, and dedication to enhancing the student experience”. I feel truly honoured by this recognition and very grateful to my students for their nomination and kind feedback. It is deeply rewarding to know that my teaching has made a meaningful difference to their learning. I would also like to thank the WATE jury for this honour, and my colleagues at Warwick for their continued support and inspiration. I do not believe this achievement would have been possible without them.
+            </p>
             <p>
               Nowadays, I am enjoying teaching macroeconomics and doing my research.
             </p>
