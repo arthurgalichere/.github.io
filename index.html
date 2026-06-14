@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arthur Galichère — Portfolio</title>
-  <meta name="description" content="Arthur Galichère — Personal portfolio and professional projects." />
+  <title>Arthur Galichère — Assistant Professor of Macroeconomics</title>
+  <meta name="description" content="Arthur Galichère is an Assistant Professor (Teaching Focussed) at the University of Warwick specializing in macroeconomics, asset price bubbles, and financial stability." />
   <meta name="author" content="Arthur Galichère" />
   
   <meta property="og:title" content="Arthur Galichère — Portfolio" />
-  <meta property="og:description" content="Personal portfolio and professional projects." />
+  <meta property="og:description" content="Assistant Professor of Macroeconomics at the University of Warwick." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.arthurgalichere.com/" />
 
-  <!-- Google Fonts: Montserrat & Bitter -->
+  <!-- Google Fonts: Montserrat, Bitter, & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -22,21 +22,21 @@
 
   <style>
     :root {
-      /* Arthur's Palette: Dark Charcoal, Slate Blue, Light Gray */
-      --paper:        #f4f5f7;      /* Light Gray Background */
-      --paper-soft:   #fafbfc;      /* Soft Off-White for Gradients */
-      --sheet:        #ffffff;      /* Card Canvas White */
-      --panel:        #ebeeec;      /* Subdued UI Elements */
+      /* Arthur's Branding: Dark Charcoal, Slate Blue, Light Gray */
+      --paper:        #f4f5f7;      /* Light Gray Canvas */
+      --paper-soft:   #fafbfc;      /* Soft Highlight Gradient */
+      --sheet:        #ffffff;      /* Pure Card White */
+      --panel:        #ebeeec;      /* Subdued Dividers */
       --panel-deep:   #e2e5e9;      /* Footer Tone */
       --line:         rgba(28, 28, 30, 0.08);
       --line-strong:  rgba(28, 28, 30, 0.15);
       --ink:          #1c1c1e;      /* Dark Charcoal Main Text */
-      --ink-soft:     #3a3a3c;      /* Muted Body Text */
-      --muted:        #71717a;      /* Secondary Labels */
+      --ink-soft:     #3a3a3c;      /* Muted Body Copy */
+      --muted:        #71717a;      /* Metadata Labels */
       
-      --accent:       #3b5a75;      /* Slate Blue Accent */
-      --accent-strong:#25394b;      /* Deep Slate for hover states */
-      --accent-soft:  #edf2f6;      /* Light Tinted Blue Background */
+      --accent:       #3b5a75;      /* Slate Blue Core Brand Color */
+      --accent-strong:#25394b;      /* Hover State Dark Blue */
+      --accent-soft:  #edf2f6;      /* Active Element Background Tint */
       --accent-line:  rgba(59, 90, 117, 0.35);
 
       --display: 'Bitter', Georgia, serif;
@@ -93,9 +93,10 @@
       box-shadow: 0 1px 2px rgba(28, 28, 30, 0.03), 0 20px 48px rgba(28, 28, 30, 0.08);
       overflow: hidden;
     }
-    /* Top Accent Spine */
+    /* Structural Top Spine */
     .card::before { content: ''; display: block; height: 4px; background: var(--accent); }
 
+    /* Fatih's Layout Grid Matrix */
     .body-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.55fr) minmax(315px, 0.9fr);
@@ -103,9 +104,9 @@
         "id        portrait"
         "bio       portrait"
         "research  portrait";
-      column-gap: 2rem;
-      row-gap: 1.2rem;
-      padding: 2.5rem 2.5rem 1.8rem;
+      column-gap: 2.5rem;
+      row-gap: 1.5rem;
+      padding: 3rem 2.5rem 2rem;
       align-items: start;
     }
 
@@ -118,13 +119,13 @@
       align-self: start;
       width: 100%;
       height: auto;
-      max-height: 595px;
-      aspect-ratio: 4 / 5.45;
+      max-height: 610px;
+      aspect-ratio: 4 / 5.3;
       object-fit: cover;
       object-position: center;
       border: 1px solid var(--line-strong);
       border-radius: 4px;
-      box-shadow: 0 12px 24px rgba(28, 28, 30, 0.1);
+      box-shadow: 0 12px 28px rgba(28, 28, 30, 0.08);
     }
 
     .eyebrow {
@@ -143,9 +144,9 @@
     .name {
       margin-top: 0.5rem;
       font-family: var(--display);
-      font-size: 3.4rem;
+      font-size: 3.2rem;
       font-weight: 700;
-      line-height: 1.05;
+      line-height: 1.1;
       color: var(--ink);
     }
 
@@ -161,13 +162,13 @@
     .affiliation {
       margin-top: 0.6rem;
       font-family: var(--sans);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: var(--muted);
     }
-    .affiliation .sep { color: var(--line-strong); margin: 0 0.45rem; }
+    .affiliation .sep { color: var(--line-strong); margin: 0 0.5rem; }
 
-    /* Universal Links inside content */
+    /* Clean Academic Underline Effects */
     .id a, .bio a, .recent-list a {
       color: var(--accent);
       text-decoration-line: underline;
@@ -184,14 +185,15 @@
 
     .bio {
       display: grid;
-      gap: 0.8rem;
+      gap: 1rem;
       font-family: var(--sans);
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1.65;
       color: var(--ink-soft);
+      text-align: justify;
     }
 
-    .research-focus { padding-top: 1rem; border-top: 1px solid var(--line); }
+    .research-focus { padding-top: 1.5rem; border-top: 1px solid var(--line); }
     .r-label {
       display: flex;
       align-items: center;
@@ -202,43 +204,44 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
     }
     .r-label::before { content: ''; width: 1rem; height: 2px; background: var(--accent); border-radius: 2px; }
 
     .recent-list {
       list-style: none;
       display: grid;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
     .recent-list li {
       position: relative;
-      padding-left: 0.9rem;
+      padding-left: 1rem;
       color: var(--ink-soft);
       font-size: 0.92rem;
-      line-height: 1.45;
+      line-height: 1.5;
     }
     .recent-list li::before {
       content: '';
       position: absolute;
       left: 0;
       top: 0.55em;
-      width: 0.3rem;
-      height: 0.3rem;
+      width: 0.35rem;
+      height: 0.35rem;
       border-radius: 50%;
       background: var(--accent);
     }
     .recent-meta {
       display: inline-block;
-      margin-right: 0.45rem;
+      margin-right: 0.5rem;
       font-family: var(--mono);
       font-size: 0.65rem;
-      letter-spacing: 0.1em;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
-    /* Bottom Index Nav System */
+    /* Index Nav Grid Links System */
     .index-nav {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -250,7 +253,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.85rem 1.2rem;
+      padding: 1rem 1.4rem;
       border-left: 1px solid var(--line);
       color: var(--ink);
       transition: background-color 0.16s ease, color 0.16s ease;
@@ -260,10 +263,10 @@
     .index-nav .idx-num { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
     .index-nav .idx-arrow { font-size: 0.78rem; color: var(--accent); transition: transform 0.16s ease; }
     .index-nav .idx-label {
-      display: inline-flex; align-items: center; gap: 0.55rem;
-      font-family: var(--display); font-size: 1.2rem; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--display); font-size: 1.15rem; font-weight: 600;
     }
-    .index-nav .idx-label i { font-size: 0.85rem; color: var(--accent); }
+    .index-nav .idx-label i { font-size: 0.85rem; color: var(--accent); width: 1.1rem; text-align: center; }
     
     .index-card.is-current { background: var(--accent-soft); color: var(--accent-strong); }
     .index-card.is-current .idx-num, .index-card.is-current .idx-arrow, .index-card.is-current .idx-label i { color: var(--accent-strong); }
@@ -272,45 +275,45 @@
     .index-card:hover .idx-num, .index-card:hover .idx-arrow, .index-card:hover .idx-label, .index-card:hover .idx-label i { color: #fff; }
     .index-card:hover .idx-arrow { transform: translateX(4px); }
 
-    /* Footer Styles */
+    /* Structural Base Footer */
     .foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.8rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       background: var(--panel-deep);
     }
     .foot-loc { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .socials { display: flex; align-items: center; gap: 0.4rem; }
     .socials a {
-      width: 1.9rem; height: 1.9rem;
+      width: 2rem; height: 2rem;
       display: inline-flex; align-items: center; justify-content: center;
       border: 1px solid var(--line-strong);
       border-radius: 4px;
       background: var(--sheet);
       color: var(--ink-soft);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       transition: all 0.16s ease;
     }
     .socials a:hover { color: #fff; background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
 
-    /* Reveal Animations */
+    /* Kinetic Reveal Animations */
     @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { animation: rise 0.55s cubic-bezier(0.2, 0.6, 0.2, 1) both; animation-delay: var(--d, 0ms); }
 
-    /* Responsive Breakthrough points */
-    @media (max-width: 860px) {
+    /* Responsive Adaptation System */
+    @media (max-width: 920px) {
       .body-grid {
         grid-template-columns: 1fr;
         grid-template-areas: "id" "portrait" "bio" "research";
-        row-gap: 1.5rem;
-        padding: 2rem 1.5rem;
+        row-gap: 1.8rem;
+        padding: 2.5rem 1.5rem;
       }
-      .portrait { max-width: 320px; aspect-ratio: 4 / 5; }
+      .portrait { max-width: 360px; aspect-ratio: 4 / 5.2; }
     }
-    @media (max-width: 620px) {
-      .name { font-size: 2.4rem; }
+    @media (max-width: 680px) {
+      .name { font-size: 2.5rem; }
       .portrait { max-width: 100%; }
       .index-nav { grid-template-columns: 1fr; }
       .index-card { border-left: none; border-top: 1px solid var(--line); }
@@ -322,96 +325,103 @@
 </head>
 <body>
 
-  <a href="#main" class="skip">Skip to content</a>
+  <a href="#main" class="skip">Skip to main content</a>
 
   <main id="main" class="page">
     <article class="card">
       
       <div class="body-grid">
-        <!-- Identity Section -->
+        <!-- Identity Matrix -->
         <div class="id">
           <p class="eyebrow reveal" style="--d:40ms">Welcome</p>
           <h1 class="name reveal" style="--d:80ms">Arthur Galichère</h1>
-          <p class="subtitle reveal" style="--d:160ms">[Your Title / Profession Here]</p>
+          <p class="subtitle reveal" style="--d:160ms">Assistant Professor (Teaching Focussed)</p>
           <p class="affiliation reveal" style="--d:220ms">
-            <a href="https://www.arthurgalichere.com">Main Domain</a>
+            <a href="https://warwick.ac.uk" target="_blank" rel="noreferrer">University of Warwick</a>
             <span class="sep" aria-hidden="true">·</span>
-            <span>Focus Area</span>
+            <span>PhD in Economics (Glasgow)</span>
           </p>
         </div>
 
-        <!-- Profile Image Placeholder -->
-        <!-- Replace 'your-photo.jpg' with your real image path -->
-        <img src="https://via.placeholder.com/400x545" alt="Arthur Galichère" class="portrait reveal" style="--d:120ms" />
+        <!-- Portrait Canvas -->
+        <!-- Swap the link below with the path to your official photo file -->
+        <img src="https://via.placeholder.com/400x530" alt="Arthur Galichère portrait" class="portrait reveal" style="--d:120ms" />
 
-        <!-- Biography Content Area -->
+        <!-- Narrative Content Area -->
         <div class="bio">
           <p class="reveal" style="--d:300ms">
-            Hello! I am Arthur Galichère. This is your core biography paragraph. Use this area to explain who you are, what problems you solve, and what sets your work apart. You can naturally include <a href="#">inline links</a> to external institutions or assets.
+            I am an Assistant Professor at the University of Warwick studying macroeconomics. My main research interests focus on themes related to financial crises and macroeconomic policies, such as asset pricing, monetary policy, heterogeneous investments, financial intermediation and stability. I design theoretical models and apply empirical methods to evaluate the effects of asset price bubbles on the economy to provide policy recommendations. My job market paper studies the dynamic ownership of bubbles and its effects on the real economy and financial stability. In contrast, my current projects focus on the Bayesian estimation of DSGE models with stock market bubbles and nominal rigidities.
           </p>
-          <p class="reveal" style="--d:360ms">
-            This second paragraph is ideal for explaining your background, training, or current technical focuses. Customize this layout to fit your exact journey.
+          <p class="reveal" style="--d:340ms">
+            I joined the University of Warwick in September 2021 as a Teaching Fellow in Macroeconomics near the completion of my PhD at the Adam Smith Business School, University of Glasgow. Following my graduation in 2022, I took on the role of lecturer for the second-year core Macroeconomics module, anchoring student learning in the foundational architectures of advanced macroeconomic research. 
+          </p>
+          <p class="reveal" style="--d:380ms">
+            In 2024, I was promoted to Assistant Professor (Teaching Focussed), expanding my leadership to the optional core Advanced Macroeconomics module for the MSc in Economics. My pedagogical strategy aims to fully equip students with data analysis systems, theoretical frameworks, and simulation techniques needed to become highly independent analysts or continue directly onto MRes and PhD tracks.
           </p>
         </div>
 
-        <!-- Featured Highlights / Projects Area -->
+        <!-- Research Domains & Award Callouts -->
         <div class="research-focus reveal" style="--d:440ms">
-          <h2 class="r-label">Featured Works</h2>
+          <h2 class="r-label">Core Fields & Highlights</h2>
           <ul class="recent-list">
             <li>
-              <span class="recent-meta">2026 · Project</span>
-              <a href="#">[First Major Project Title]</a>: A short sentence detailing your role, the core stack used, or the ultimate real-world result achieved.
+              <span class="recent-meta">Award</span>
+              <strong>Warwick Award for Teaching Excellence (WATE) 2025:</strong> Awarded for innovation, impact, and an unyielding dedication to enhancing the student experience within the Faculty of Social Sciences.
             </li>
             <li>
-              <span class="recent-meta">2025 · Case Study</span>
-              <a href="#">[Second Major Project Title]</a>: Highlight alternative work milestones, operational architectures deployed, or research papers published here.
+              <span class="recent-meta">Focus</span>
+              <strong>Macroeconomic Architecture:</strong> Macroeconomic Policies, Business Cycles, and Unconventional Monetary Policy design.
+            </li>
+            <li>
+              <span class="recent-meta">Focus</span>
+              <strong>Financial Stability:</strong> Asset Price Bubbles, Market Intermediation, and Systemic Crises models.
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Footer Section Navigation Matrix -->
-      <nav class="index-nav reveal" style="--d:500ms" aria-label="Main sections">
+      <!-- Academic Section Matrix Navigation (Fatih Architecture Adaptation) -->
+      <nav class="index-nav reveal" style="--d:500ms" aria-label="Academic Directory">
         <a href="/" class="index-card is-current" aria-current="page">
           <span class="idx-top">
             <span class="idx-num">01</span>
             <i class="fas fa-arrow-right idx-arrow" aria-hidden="true"></i>
           </span>
-          <span class="idx-label"><i class="fas fa-house" aria-hidden="true"></i> Home</span>
+          <span class="idx-label"><i class="fas fa-house" aria-hidden="true"></i> Profile</span>
         </a>
-        <a href="#projects" class="index-card">
+        <a href="#research" class="index-card">
           <span class="idx-top">
             <span class="idx-num">02</span>
             <i class="fas fa-arrow-right idx-arrow" aria-hidden="true"></i>
           </span>
-          <span class="idx-label"><i class="fas fa-flask" aria-hidden="true"></i> Projects</span>
+          <span class="idx-label"><i class="fas fa-chart-line" aria-hidden="true"></i> Research</span>
         </a>
-        <a href="#experience" class="index-card">
+        <a href="#teaching" class="index-card">
           <span class="idx-top">
             <span class="idx-num">03</span>
             <i class="fas fa-arrow-right idx-arrow" aria-hidden="true"></i>
           </span>
-          <span class="idx-label"><i class="fas fa-briefcase" aria-hidden="true"></i> Experience</span>
+          <span class="idx-label"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Teaching</span>
         </a>
         <a href="#cv" class="index-card">
           <span class="idx-top">
             <span class="idx-num">04</span>
             <i class="fas fa-arrow-right idx-arrow" aria-hidden="true"></i>
           </span>
-          <span class="idx-label"><i class="fas fa-file-lines" aria-hidden="true"></i> CV</span>
+          <span class="idx-label"><i class="fas fa-file-pdf" aria-hidden="true"></i> CV</span>
         </a>
       </nav>
 
-      <!-- Structural Footer -->
+      <!-- UI Footer System -->
       <div class="foot reveal" style="--d:560ms">
         <div class="socials">
-          <!-- Update href values with your real social media links -->
-          <a href="mailto:your-email@example.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
-          <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <!-- Update with your verified links -->
+          <a href="mailto:A.Galichere@warwick.ac.uk" aria-label="Email Address"><i class="fas fa-envelope" aria-hidden="true"></i></a>
           <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a href="https://warwick.ac.uk/fac/soc/economics/staff/agalichere/" target="_blank" rel="noreferrer" aria-label="University Profile"><i class="fas fa-university" aria-hidden="true"></i></a>
         </div>
-        <span class="foot-loc">Location · Your Country</span>
+        <span class="foot-loc">University of Warwick · Coventry, UK</span>
       </div>
       
     </article>
