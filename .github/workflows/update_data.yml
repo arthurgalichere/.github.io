@@ -2,7 +2,7 @@ name: Nightly FRED Data Update
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Tells the robot to run every single night at midnight
+    - cron: '30 3 * * 0' # Tells the robot to run every Sunday at 03:30 UTC
   workflow_dispatch: # Gives you a manual button to click if you want to force an update right now
 
 permissions:
