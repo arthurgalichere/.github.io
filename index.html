@@ -94,7 +94,7 @@
     /* Top Brand Spine */
     .card::before { content: ''; display: block; height: 4px; background: var(--accent); }
 
-    /* Top Navigation Matrix - Centered text alignment across 5 explicit columns */
+    /* Top Navigation Matrix */
     .index-nav {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -133,20 +133,25 @@
       align-items: start;
     }
 
-    .hero-left { min-width: 0; }
+    /* Grid Row Architecture for Desktop Perfect Alignment */
+    .hero-brand {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .in-a-few-words-wrapper {
+      grid-column: 1;
+      grid-row: 2;
+    }
     
-    /* Layout styling for right side elements - aligned flush right */
     .hero-right { 
       min-width: 0; 
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 1.5rem;
-    }
-    .warwick-logo img {
-      max-height: 45px;
-      width: auto;
-      display: block;
+      grid-column: 2;
+      grid-row: 2; /* Forces top edge to align perfectly with the summary block text top */
     }
 
     /* Landscape Portrait Modification */
@@ -177,7 +182,7 @@
       font-weight: 500;
       line-height: 1.4;
       color: var(--accent);
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
     /* Cleaned Inline Link Style (No Underline) */
@@ -273,7 +278,7 @@
       text-decoration-thickness: 2px;
     }
     
-    /* Side Highlights Box layout (Fatih Style) */
+    /* Side Highlights Box layout */
     .highlights-panel {
       background: var(--paper-soft);
       border: 1px solid var(--line);
@@ -345,6 +350,13 @@
         padding: 2.5rem 1.5rem 2rem;
         row-gap: 2rem;
       }
+      /* Reset explicit alignment grid rows so elements stack natively on tablet/mobile views */
+      .hero-brand,
+      .in-a-few-words-wrapper,
+      .hero-right {
+        grid-column: auto;
+        grid-row: auto;
+      }
       .hero-right { align-items: flex-start; }
       .portrait-landscape { aspect-ratio: 16 / 9; max-width: 550px; }
       .about-wrapper {
@@ -394,45 +406,40 @@
 
       <section class="hero-section">
          
-       
-        <div class="hero-left">
+        <div class="hero-brand">
           <h1 class="name reveal" style="--d:40ms">Arthur Galichère</h1>
           <p class="subtitle reveal" style="--d:80ms">Assistant Professor (Teaching Focussed)</p>
+        </div>
 
-          <div class="in-a-few-words-wrapper reveal" style="--d:160ms">
-            <h2 class="section-label">In a few words</h2>
-            <div class="in-a-few-words-content">
-              <p>
-                I am an Assistant Professor at the 
-                <a href="https://warwick.ac.uk/fac/soc/economics/" target="_blank" rel="noreferrer" class="inline-link">
-                  University of Warwick</a>, where I lecture on the core 2nd year undergraduate Macroeconomics module and the core MSc module Advanced Macroeconomics.
-              </p>
-              
-              <p style="margin-top: 0.6rem;">
-                I joined the <a href="https://warwick.ac.uk/fac/soc/economics/" target="_blank" rel="noreferrer" class="inline-link">
-                University of Warwick</a> as a Teaching Fellow in Macroeconomics in 2021 and received my PhD in Economics from the
-                <a href="https://www.gla.ac.uk/schools/business/" target="_blank" rel="noreferrer" class="inline-link">
-                University of Glasgow</a> in 2022.
-              </p>
+        <div class="in-a-few-words-wrapper reveal" style="--d:160ms">
+          <h2 class="section-label">In a few words</h2>
+          <div class="in-a-few-words-content">
+            <p>
+              I am an Assistant Professor at the 
+              <a href="https://warwick.ac.uk/fac/soc/economics/" target="_blank" rel="noreferrer" class="inline-link">
+                University of Warwick</a>, where I lecture on the core 2nd year undergraduate Macroeconomics module and the core MSc module Advanced Macroeconomics.
+            </p>
+            
+            <p style="margin-top: 0.6rem;">
+              I joined the <a href="https://warwick.ac.uk/fac/soc/economics/" target="_blank" rel="noreferrer" class="inline-link">
+              University of Warwick</a> as a Teaching Fellow in Macroeconomics in 2021 and received my PhD in Economics from the
+              <a href="https://www.gla.ac.uk/schools/business/" target="_blank" rel="noreferrer" class="inline-link">
+              University of Glasgow</a> in 2022.
+            </p>
 
-              <p style="margin-top: 0.6rem;">
-                My research lies at the intersection of macroeconomics and finance, with a particular focus on:
-              </p>
-              <ul class="interest-list">
-                <li>Business cycles</li>
-                <li>Asset price bubbles</li>
-                <li>Macroeconomic policies</li>
-                <li>Financial stability</li>
-              </ul>
-            </div>
+            <p style="margin-top: 0.6rem;">
+              My research lies at the intersection of macroeconomics and finance, with a particular focus on:
+            </p>
+            <ul class="interest-list">
+              <li>Business cycles</li>
+              <li>Asset price bubbles</li>
+              <li>Macroeconomic policies</li>
+              <li>Financial stability</li>
+            </ul>
           </div>
         </div>
 
-        
         <div class="hero-right reveal" style="--d:140ms">
-          <div class="warwick-logo">
-            <img src="website/University_of_Warwick_name_1.png" alt="University of Warwick logo">
-          </div>
           <img src="website/images/arthur_galichere.png" alt="Arthur Galichère landscape view" class="portrait-landscape">
         </div> 
 
