@@ -1,189 +1,107 @@
+import os
 import json
 import re
 import pdfplumber
 
-def fix_known_squished_words(text):
-    """Manually repairs specific LaTeX compilation glitches without an AI key."""
-    replacements = {
-        "AssetPriceBubblesandMacroeconomicPolicies": "Asset Price Bubbles and Macroeconomic Policies",
-        "WhenBanksRidetheBubble:": "When Banks Ride the Bubble:",
-        "FinancialStabilityandRealActivity": "Financial Stability and Real Activity",
-        "StockMarketBubblesandMonetarypolicy:": "Stock Market Bubbles and Monetary Policy:",
-        "aBayesianAnalysis": "a Bayesian Analysis",
-        "WOrK IN PrOGrESS": "Work In Progress",
-        "WOrKING PAPEr": "Working Paper",
-        "JOB MArKET PAPEr": "Job Market Paper",
-        "MainTeachingInterests:": "Main Teaching Interests: ",
-        "UNIVErSITY OF W ArWICK": "UNIVERSITY OF WARWICK",
-        "UNIVErSITY OF GLASGOW": "UNIVERSITY OF GLASGOW",
-        "PrESENT": "Present"
-    }
-    for squished, fixed in replacements.items():
-        text = text.replace(squished, fixed)
-    return text
+# Direct inline check to prevent execution if heavy dependencies aren't ready
+try:
+    import torch
+    from transformers import pipeline
+except ImportError:
+    print("Error: torch and transformers libraries are required. Check your workflow file.")
+    exit(1)
+
+def extract_json_from_llm_output(output_text):
+    """Safely extracts a JSON block from the LLM text response."""
+    try:
+        # Look for content wrapped between the first '{' and last '}'
+        match = re.search(r'\{.*\}', output_text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+        return json.loads(output_text)
+    except Exception as e:
+        print(f"Failed to isolate clean JSON structure: {e}")
+        return None
 
 def parse_pdf_to_json():
-    structured_data = {"sections": []}
-    raw_lines = []
-
-    # 1. Read the PDF using default spacing metrics (fixes the "No Spaces" bug)
+    # 1. Extract completely raw text from your PDF
+    print("Extracting raw text matrices from CV PDF...")
+    raw_text = ""
     try:
         with pdfplumber.open("website/CV_Arthur_Galichere.pdf") as pdf:
             for page in pdf.pages:
                 text = page.extract_text()
                 if text:
-                    text = fix_known_squished_words(text)
-                    for line in text.split("\n"):
-                        clean_line = line.strip()
-                        if clean_line:
-                            # Skip running page headers/footers
-                            if re.search(r'(?i)Page\s+\d+', clean_line): continue
-                            if re.search(r'(?i)Arthur\s+Galichère', clean_line): continue
-                            if "Curriculum Vitae" in clean_line or "Curriculum Vitæ" in clean_line: continue
-                            raw_lines.append(clean_line)
+                    raw_text += text + "\n"
     except Exception as e:
-        print(f"Error reading PDF layout: {e}")
+        print(f"Error opening or reading PDF file: {e}")
         return
 
-    # 2. Section Map & Skip Rules
-    section_map = {
-        "EMPLOYMENT": "Employment",
-        "EDUCATION": "Education",
-        "TEACHING AWARDS AND QUALIFICATIONS": "Teaching Awards & Qualifications",
-        "TEACHING AWArDS AND QUALIfICATIONS": "Teaching Awards & Qualifications",
-        "TEACHING EXPERIENCE": "Teaching Experience",
-        "TEACHING EXPErIENCE": "Teaching Experience",
-        "ACADEMIC LEADERSHIP, TEACHING SUPPORT AND EDUCATIONAL DEVELOPMENT": "Academic Leadership & Development",
-        "ACADEMIC LEADErSHIP, TEACHING SUPPOrT AND EDUCATIONAL DEVELOPMENT": "Academic Leadership & Development",
-        "REFEREES": "Referees",
-        "REFErEES": "Referees",
-        "RESEARCH PRESENTATIONS": "Selected Presentations",
-        "RESEArCH PrESENTATIONS": "Selected Presentations",
-        "PRESENTATIONS": "Selected Presentations"
-    }
-    
-    # Sections to drop entirely because they have their own web tab
-    skip_sections = ["RESEARCH", "RESEArCH", "JOB MARKET PAPER", "JOB MArKET PAPEr", "WORKING PAPER", "WOrKING PAPEr", "WORK IN PROGRESS", "WOrK IN PrOGrESS"]
+    # 2. Build the structural engineering prompt
+    prompt = f"""
+Clean and transform the following messy text extracted from an academic CV into a structured JSON object.
 
-    current_section = None
-    section_data = {"title": "", "items": []}
+RULES:
+1. Fix words squished together by PDF layout issues (e.g., convert 'AssistantProfessor' to 'Assistant Professor', 'UniversityofWarwick' to 'University of Warwick').
+2. Drop and completely OMIT general text research blocks, summaries, or abstracts (e.g., 'Research Summary', 'Job Market Paper', 'Working Papers', 'Work in Progress').
+3. Keep the 'Research Presentations' / 'Presentations' section, rename it to 'Selected Presentations', and group items neatly by year.
+4. Correct institutional misattributions:
+   - The 'Warwick Award for Teaching Excellence' (WATE) belongs to the 'University of Warwick'.
+   - The 'Fellowship of the Higher Education Academy' belongs to the 'University of Warwick'.
+   - The 'Associate Fellowship' / 'DAT HE' belongs to the 'University of Glasgow'.
+5. Strip all running page headers, footers, page numbers, and custom icon bullets.
 
-    # 3. Main Processing Loop
-    for line in raw_lines:
-        normalized_line = line.upper().replace("  ", " ")
+Output ONLY a valid JSON object matching this schema layout:
+{{
+  "sections": [
+    {{
+      "title": "Section Title",
+      "items": [
+        {{
+          "role": "Role, award name, or conference title",
+          "institution": "University name or blank string if inapplicable",
+          "date": "Year or timeline range (e.g., 2024–Present or 2025)",
+          "details": "Paragraph description text"
+        }}
+      ]
+    }}
+  ]
+}}
+
+Raw CV Text:
+{raw_text}
+"""
+
+    # 3. Initialize the local open-source LLM engine (runs entirely on CPU)
+    print("Loading local lightweight AI engine (Qwen2.5-1.5B)...")
+    try:
+        pipe = pipeline(
+            "text-generation",
+            model="Qwen/Qwen2.5-1.5B-Instruct",
+            torch_dtype=torch.float32, # Force clean float32 for CPU stability
+            device_map="cpu"
+        )
         
-        # Check if line marks a section transition
-        is_header = False
-        for anchor, clean_title in section_map.items():
-            if normalized_line.startswith(anchor):
-                if current_section and section_data["items"]:
-                    structured_data["sections"].append(section_data)
-                current_section = clean_title
-                section_data = {"title": current_section, "items": []}
-                is_header = True
-                break
-                
-        if is_header: continue
-
-        for skip_anchor in skip_sections:
-            if normalized_line.startswith(skip_anchor):
-                if current_section and section_data["items"]:
-                    structured_data["sections"].append(section_data)
-                current_section = "SKIP"
-                is_header = True
-                break
-                
-        if is_header or current_section == "SKIP" or not current_section: continue
-
-        # --- MODE A: Timelines (Employment, Education, Leadership) ---
-        if current_section in ["Employment", "Education", "Academic Leadership & Development"]:
-            date_match = re.search(r'(\b\d{4}\s*[-–]\s*(?:Present|\d{4})?)$', line)
-            if date_match:
-                date_str = date_match.group(1).strip()
-                role_str = line[:date_match.start()].strip().rstrip(',:-').strip()
-                
-                inst_str = "University of Warwick" if "Warwick" in role_str or "Warwick" in line else ""
-                if "Glasgow" in role_str or "Glasgow" in line: inst_str = "University of Glasgow"
-                if "Caen" in role_str or "Caen" in line: inst_str = "University of Caen, France"
-
-                section_data["items"].append({
-                    "role": role_str,
-                    "institution": inst_str,
-                    "date": date_str,
-                    "details": ""
-                })
-            elif section_data["items"]:
-                last_item = section_data["items"][-1]
-                if "University of" in line or "University of Caen" in line:
-                    last_item["institution"] = line
-                else:
-                    last_item["details"] = (last_item["details"] + " " + line).strip()
-
-        # --- MODE B: Hardcoded Teaching Awards & Qualifications Fix ---
-        elif current_section == "Teaching Awards & Qualifications":
-            # Identify standard titles
-            if line in ["Excellence in Teaching", "Fellowship of the Higher Education Academy", "Associate Fellowship"]:
-                section_data["items"].append({
-                    "role": line,
-                    "institution": "",
-                    "date": "",
-                    "details": ""
-                })
-            elif section_data["items"]:
-                last_item = section_data["items"][-1]
-                
-                # Context check to ensure Warwick awards land at Warwick
-                if "Warwick Award" in line or "WATE" in line:
-                    last_item["institution"] = "University of Warwick"
-                elif "Student Teaching Award" in line or "Graduate Teaching Assistant" in line:
-                    last_item["institution"] = "University of Glasgow"
-                elif "Developing as a Teacher in Higher Education" in line:
-                    last_item["institution"] = "University of Glasgow"
-                
-                # Default safety assignment if blank
-                if not last_item["institution"] and "University of" in line:
-                    if "Warwick" in line: last_item["institution"] = "University of Warwick"
-                    else: last_item["institution"] = "University of Glasgow"
-
-                # Pull year strings out cleanly
-                year_match = re.search(r'\b(20\d{2})\b', line)
-                if year_match and not last_item["date"]:
-                    last_item["date"] = year_match.group(1)
-
-                if "University of" in line or line == "alignment":
-                    continue
-                last_item["details"] = (last_item["details"] + " " + line).strip()
-
-        # --- MODE C: Presentations / Conferences ---
-        elif current_section == "Selected Presentations":
-            if re.match(r'^\d{4}$', line):
-                section_data["items"].append({"role": "MARKER", "institution": "", "date": line, "details": ""})
-            elif section_data["items"]:
-                last_item = section_data["items"][-1]
-                if last_item["role"] == "MARKER":
-                    last_item["role"] = line
-                else:
-                    section_data["items"].append({"role": line, "institution": "", "date": last_item["date"], "details": ""})
-
-        # --- MODE D: Fallback Blocks (Teaching Experience, Referees) ---
+        messages = [
+            {"role": "system", "content": "You are a precise data extraction assistant that outputs strictly valid raw JSON without conversational filler or markdown codeblocks."},
+            {"role": "user", "content": prompt}
+        ]
+        
+        print("Processing text layout via local AI inference... (This may take 1-2 minutes on CPU)")
+        outputs = pipe(messages, max_new_tokens=2048, temperature=0.1, do_sample=False)
+        llm_response = outputs[0]["generated_text"][-1]["content"]
+        
+        # 4. Clean and serialize the output
+        final_json = extract_json_from_llm_output(llm_response)
+        if final_json:
+            with open("website/cv.json", "w", encoding="utf-8") as f:
+                json.dump(final_json, f, indent=2, ensure_ascii=False)
+            print("Success! cv.json has been accurately compiled locally by open-source AI.")
         else:
-            if ":" in line and len(line) < 60:
-                section_data["items"].append({"role": line, "institution": "", "date": "", "details": ""})
-            elif section_data["items"]:
-                section_data["items"][-1]["details"] = (section_data["items"][-1]["details"] + " " + line).strip()
-            else:
-                section_data["items"].append({"role": "", "institution": "", "date": "", "details": line})
-
-    if current_section and current_section != "SKIP" and section_data["items"]:
-        structured_data["sections"].append(section_data)
-
-    # Clean up marker leftovers before writing out
-    for sec in structured_data["sections"]:
-        sec["items"] = [it for it in sec["items"] if it["role"] != "MARKER"]
-
-    with open("website/cv.json", "w", encoding="utf-8") as f:
-        json.dump(structured_data, f, indent=2, ensure_ascii=False)
-    print("cv.json synchronized locally with spacing corrections.")
+            print("Error: The local LLM output could not be parsed into valid JSON.")
+            
+    except Exception as e:
+        print(f"Local AI Pipeline encountered an error: {e}")
 
 if __name__ == "__main__":
     parse_pdf_to_json()
