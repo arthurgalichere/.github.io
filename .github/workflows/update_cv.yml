@@ -3,7 +3,7 @@ name: Auto-Update CV Data
 on:
   push:
     paths:
-      - 'website/cv.pdf'
+      - 'website/CV_Arthur_Galichere.pdf'
   workflow_dispatch: # <-- Add this line right here!
 
 jobs:
