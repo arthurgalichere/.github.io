@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arthur Galichère — CV</title>
+  <title>Arthur Galichère — Curriculum Vitae</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -156,6 +156,7 @@
   <main class="page">
     <article class="card">
       
+      <!-- Synchronized Navbar Links pointing back to main page anchor points -->
       <nav class="index-nav" aria-label="Academic Directory">
         <a href="../index.html" class="index-card">
           <span class="idx-label"><i class="fas fa-user" aria-hidden="true"></i> Profile</span>
@@ -177,9 +178,11 @@
       <section class="cv-body">
         <div class="cv-header-block">
           <h1 class="cv-title">Curriculum Vitae</h1>
-          <a href="cv.pdf" target="_blank" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;"><i class="fas fa-download"></i> Download PDF</a>
+          <!-- Updated to refer to CV_Arthur_Galichere.pdf -->
+          <a href="CV_Arthur_Galichere.pdf" target="_blank" style="color: var(--accent); font-weight: 600; font-size: 0.9rem;"><i class="fas fa-download"></i> Download PDF</a>
         </div>
 
+        <!-- The parsed JSON data injection point -->
         <div id="cv-target">Loading CV data...</div>
       </section>
 
@@ -190,6 +193,7 @@
     </article>
   </main>
 
+  <!-- Client-side script reading the generated JSON structural array safely -->
   <script>
     async function loadCV() {
       try {
@@ -205,14 +209,20 @@
           `;
           
           section.items.forEach(item => {
+            // Check if item fields are empty to alter layout patterns elegantly
+            const hasRole = item.role && item.role.trim() !== "";
+            const hasInstitution = item.institution && item.institution.trim() !== "";
+            const hasDate = item.date && item.date.trim() !== "";
+            const hasDetails = item.details && item.details.trim() !== "";
+
             sectionHTML += `
-              <div class="cv-item">
+              <div class="cv-item" style="margin-bottom: 1.5rem;">
                 <div>
-                  <div class="cv-item-role">${item.role}</div>
-                  <div class="cv-item-institution">${item.institution}</div>
+                  ${hasRole ? `<div class="cv-item-role" style="font-weight:600; color:var(--ink);">${item.role}</div>` : ''}
+                  ${hasInstitution ? `<div class="cv-item-institution" style="color:var(--accent); font-weight:500;">${item.institution}</div>` : ''}
                 </div>
-                <div class="cv-item-date">${item.date}</div>
-                ${item.details ? `<div class="cv-item-details">${item.details}</div>` : ''}
+                ${hasDate ? `<div class="cv-item-date" style="font-family:var(--mono); font-size:0.88rem; color:var(--muted);">${item.date}</div>` : ''}
+                ${hasDetails ? `<div class="cv-item-details" style="grid-column: 1 / -1; margin-top: 0.3rem; line-height: 1.5; color:var(--ink-soft);">${item.details}</div>` : ''}
               </div>
             `;
           });
@@ -221,7 +231,7 @@
           target.innerHTML += sectionHTML;
         });
       } catch (error) {
-        document.getElementById('cv-target').innerHTML = '<p style="color: red;">Failed to parse CV data structural stream.</p>';
+        document.getElementById('cv-target').innerHTML = '<p style="color: red;">Failed to parse structural cv.json content arrays.</p>';
       }
     }
     loadCV();
