@@ -17,7 +17,7 @@ def clean_pdf_artifacts(text):
 
 def parse_pdf_to_json():
     try:
-        reader = PdfReader("website/cv.pdf")
+        reader = PdfReader("website/CV_Arthur_Galichere.pdf")
     except Exception as e:
         print(f"Error opening PDF context: {e}")
         return
