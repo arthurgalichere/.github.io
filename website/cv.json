@@ -30,19 +30,19 @@
           "role": "Ph.D. in Economics",
           "institution": "University of Glasgow, United Kingdom",
           "date": "2017 – 2022",
-          "details": "Doctorate funded by the Economic and Social Research Council (ESRC)\nSupervisors: Professor Tatiana Kirsanova, Professor Charles Nolan and Professor Richard Dennis\nThesis examiners: Doctor Kalin Nikolov and Professor Campbell Leith\nThesis Title: “Asset Price Bubbles and Macroeconomic Policies”"
+          "details": "Doctorate funded by the Economic and Social Research Council (ESRC). Supervisors: Professor Tatiana Kirsanova, Professor Charles Nolan and Professor Richard Dennis. Thesis examiners: Doctor Kalin Nikolov and Professor Campbell Leith. Thesis Title: “Asset Price Bubbles and Macroeconomic Policies”"
         },
         {
           "role": "MRes in Economics",
           "institution": "University of Glasgow, United Kingdom",
           "date": "2015 – 2017",
-          "details": "Graduated with Merit\nTwo-year programme in economics structured as a Doctoral training\nMaster’s Dissertation: “How to Model Credit Frictions?”"
+          "details": "Graduated with Merit. Two-year programme in economics structured as a Doctoral training. Master’s Dissertation: “How to Model Credit Frictions?”"
         },
         {
           "role": "Master 1 in Economics and Management",
           "institution": "University of Caen, France",
           "date": "2014 – 2015",
-          "details": "Graduated with Merit\nExchange programme: the programme was taught and assessed at Texas A&M University, USA\nThe Master 1 is the French equivalent of the Master of Science\nMaster’s Dissertation: “A Comparative Analysis of Fed and ECB Monetary Policies”"
+          "details": "Graduated with Merit. Exchange programme: the programme was taught and assessed at Texas A&M University, USA. The Master 1 is the French equivalent of the Master of Science. Master’s Dissertation: “A Comparative Analysis of Fed and ECB Monetary Policies”"
         },
         {
           "role": "Licence in Economics and Management",
@@ -67,33 +67,33 @@
       "title": "Professional Development",
       "items": [
         {
-          "role": "Topics in Bayesian Macroeconometrics",
+          "role": "Topics in Bayesian Macroeconometrics — taught by Andrea Carriero and Kristoffer Nimark",
           "institution": null,
           "date": "2026",
-          "details": "taught by Andrea Carriero and Kristoffer Nimark"
+          "details": null
         },
         {
-          "role": "Tools for Macroeconomists Summer School: The Essentials",
+          "role": "Tools for Macroeconomists Summer School: The Essentials — taught by Petr Sedlacek",
           "institution": null,
           "date": "2024",
-          "details": "taught by Petr Sedlacek"
+          "details": null
         },
         {
-          "role": "Computational Methods in Economics",
+          "role": "Computational Methods in Economics — taught by Pontus Rendahl",
           "institution": null,
           "date": "2020",
-          "details": "taught by Pontus Rendahl"
+          "details": null
         },
         {
-          "role": "Continuous-Time Heterogeneous-Agent Models",
+          "role": "Continuous-Time Heterogeneous-Agent Models — taught by Christos Koulovatianos",
           "institution": null,
           "date": "2020",
-          "details": "taught by Christos Koulovatianos"
+          "details": null
         }
       ]
     },
     {
-      "title": "Teaching Awards and Qualifications",
+      "title": "Teaching Awards & Qualifications",
       "items": [
         {
           "role": "Excellence in Teaching",
@@ -211,7 +211,6 @@
         },
         {
           "title": "Additional Teaching and Supervisory Experience",
-          "details": null,
           "items": [
             {
               "role": "External MSc Dissertation Supervisor",
